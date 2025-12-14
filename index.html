@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkillConnect - Direct Work Portal</title>
+    <style>
+        :root { --primary: #25d366; --dark: #128c7e; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: #f0f2f5; }
+        header { background: var(--dark); color: white; padding: 20px; text-align: center; }
+        .container { padding: 15px; max-width: 500px; margin: auto; }
+        .card { background: white; padding: 15px; border-radius: 12px; margin-bottom: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        input, textarea, select { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
+        button { width: 100%; background: var(--primary); color: white; border: none; padding: 15px; border-radius: 8px; font-weight: bold; cursor: pointer; }
+        .job-tag { background: #e7f3ff; color: #007bff; padding: 4px 10px; border-radius: 4px; font-size: 12px; }
+        .whatsapp-btn { background: #25d366; color: white; text-decoration: none; padding: 8px 15px; border-radius: 5px; display: inline-block; margin-top: 10px; font-size: 14px; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>SkillConnect</h1>
+    <p>बिना किसी फीस के सीधा काम पाएं</p>
+</header>
+
+<div class="container">
+    <div class="card">
+        <h3>नयी ज़रूरत पोस्ट करें (फ्री)</h3>
+        <input type="text" id="bizName" placeholder="आपका नाम / कंपनी का नाम">
+        <select id="skillNeeded">
+            <option value="Video Editor">Video Editor</option>
+            <option value="Coder/Dev">Coder/Developer</option>
+            <option value="Designer">Graphic Designer</option>
+            <option value="Other">अन्य (Other)</option>
+        </select>
+        <textarea id="taskDesc" placeholder="काम की जानकारी दें..."></textarea>
+        <input type="number" id="whatsappNum" placeholder="आपका WhatsApp नंबर">
+        <button onclick="addPost()">जॉब लाइव करें</button>
+    </div>
+
+    <hr>
+    <h3>ताज़ा काम (Live Jobs)</h3>
+    <div id="feed">
+        </div>
+</div>
+
+<script>
+    function addPost() {
+        const name = document.getElementById('bizName').value;
+        const skill = document.getElementById('skillNeeded').value;
+        const desc = document.getElementById('taskDesc').value;
+        const phone = document.getElementById('whatsappNum').value;
+
+        if(!name || !desc || !phone) { alert("कृपया सभी जानकारी भरें"); return; }
+
+        const feed = document.getElementById('feed');
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+            <span class="job-tag">${skill}</span>
+            <h4>${name} को आपकी ज़रूरत है</h4>
+            <p>${desc}</p>
+            <a href="https://wa.me/91${phone}?text=नमस्ते, मैंने SkillConnect पर आपकी पोस्ट देखी..." class="whatsapp-btn">Direct WhatsApp करें</a>
+        `;
+        feed.prepend(card);
+        
+        // फॉर्म क्लियर करें
+        document.getElementById('taskDesc').value = "";
+    }
+</script>
+
+</body>
+</html>
